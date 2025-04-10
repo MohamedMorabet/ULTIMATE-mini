@@ -6,7 +6,7 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:59:38 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/03/25 19:49:24 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/03 22:50:25 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	process_export_arg(char *arg, t_envnode **envp)
 		set_status(1);
 		return (1);
 	}
-	eq = strchr(arg, '=');
+	eq = ft_strchr(arg, '=');
 	if (eq == NULL)
 		return (process_export_arg_no_eq(arg, envp));
 	return (process_export_arg_eq(arg, envp));

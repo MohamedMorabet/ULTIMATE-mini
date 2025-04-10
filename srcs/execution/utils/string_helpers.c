@@ -6,39 +6,41 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:39:42 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/03/25 23:52:25 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/03 13:46:07 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 #include "../../../includes/execution.h"
 
+static int	find_matching_quote(char *input, int i, char quote)
+{
+	while (input[i] && input[i] != quote)
+		i++;
+	return (i);
+}
+
 char	*process_initial_part(char *input, int *i)
 {
 	char	quote;
 	char	*result;
+	int		end;
 
 	*i = 0;
 	result = ft_strdup("");
 	if (input[*i] == '\'' || input[*i] == '"')
 	{
 		quote = input[*i];
-		*i = *i + 1;
-		while (input[*i] && input[*i] != quote)
-		{
-			*i = *i + 1;
-		}
-		if (input[*i + 1] == '\0')
+		(*i)++;
+		end = find_matching_quote(input, *i, quote);
+		if (input[end + 1] == '\0')
 		{
 			free(result);
 			return (input);
 		}
-		else
-		{
-			free(result);
-			result = ft_substr(input, 1, *i - 1);
-		}
-		*i = *i + 1;
+		free(result);
+		result = ft_substr(input, 1, end - 1);
+		*i = end + 1;
 	}
 	return (result);
 }

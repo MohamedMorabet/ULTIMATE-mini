@@ -6,7 +6,7 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:57:46 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/03/26 03:01:30 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/05 16:07:17 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ int	builtin_cd(char **args, t_envnode **envp)
 
 	ret = 0;
 	oldpwd = getcwd(NULL, 0);
-	if (!args[1] || !strcmp(args[1], "~"))
+	if (!args[1] || !ft_strcmp(args[1], "~"))
 		ret = cd_home(args, envp);
-	else if (!strcmp(args[1], "-"))
+	else if (!ft_strcmp(args[1], "-"))
 		ret = cd_oldpwd(args, envp);
 	else if (chdir(args[1]) != 0)
 	{

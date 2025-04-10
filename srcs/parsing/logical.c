@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   logical.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 00:42:58 by oel-mest          #+#    #+#             */
-/*   Updated: 2025/03/20 01:58:11 by oel-mest         ###   ########.fr       */
+/*   Updated: 2025/04/07 15:33:24 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static t_ast	*process_logical_connector(t_token **tokens, int inpar, t_ast *left)
+static t_ast	*process_logical_connector(t_token **tokens,
+					int inpar, t_ast *left)
 {
 	t_ast		*node;
 	t_ast		*right;
@@ -26,11 +27,11 @@ static t_ast	*process_logical_connector(t_token **tokens, int inpar, t_ast *left
 	if (*tokens == NULL || is_special_token(*tokens))
 	{
 		if (*tokens == NULL)
-			printf("minishell: syntax error near unexpected token `newline'\n");
+			print_error("syntax error near unexpected token `newline\'", NULL);
 		else
-			printf("2minishell: syntax error near unexpected token `%s'\n",
-				(*tokens)->value);
-		return (free_ast(left) ,NULL);
+			print_error("syntax error near unexpected token `",
+				(*tokens)->value, "\'", NULL);
+		return (free_ast(left), set_status(258), NULL);
 	}
 	node = create_ast_node(node_type, inpar);
 	right = handle_parentheses(tokens, inpar);
@@ -41,7 +42,8 @@ static t_ast	*process_logical_connector(t_token **tokens, int inpar, t_ast *left
 	return (node);
 }
 
-static t_ast	*process_logical_pipeline(t_token **tokens, int inpar, t_ast *left)
+static t_ast	*process_logical_pipeline(t_token **tokens,
+					int inpar, t_ast *left)
 {
 	t_ast	*node;
 
@@ -65,7 +67,8 @@ t_ast	*parse_logical(t_token **tokens, int inpar)
 	left = handle_parentheses(tokens, inpar);
 	if (left == NULL)
 		return (NULL);
-	while (*tokens && ((*tokens)->type == TOKEN_AND || (*tokens)->type == TOKEN_OR))
+	while (*tokens && ((*tokens)->type == TOKEN_AND
+			|| (*tokens)->type == TOKEN_OR))
 	{
 		node = process_logical_connector(tokens, inpar, left);
 		if (node == NULL)
@@ -84,12 +87,16 @@ t_ast	*parse_logical(t_token **tokens, int inpar)
 
 t_ast	*parse(t_token *tokens)
 {
-	t_ast	*result = parse_logical(&tokens, 0);
+	t_ast	*result ;
+
+	result = parse_logical(&tokens, 0);
 	if (result == NULL)
 		return (NULL);
 	if (tokens != NULL)
 	{
-		printf("3minishell: syntax error near unexpected token `%s\'\n", tokens->value);
+		print_error("syntax error near unexpected token `",
+			tokens->value, "\'", NULL);
+		set_status(258);
 		free_ast(result);
 		return (NULL);
 	}

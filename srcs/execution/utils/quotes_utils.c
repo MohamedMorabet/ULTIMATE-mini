@@ -6,7 +6,7 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:38:11 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/03/26 00:47:06 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/05 16:03:00 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*remove_quotess(const char *str)
 
 	if (!str)
 		return (NULL);
-	len = strlen(str);
+	len = ft_strlen(str);
 	cleaned = malloc(len + 1);
 	if (!cleaned)
 		return (NULL);
@@ -43,14 +43,14 @@ char	*remove_quotes(const char *str)
 	size_t	len;
 	char	*clean;
 
-	len = strlen(str);
+	len = ft_strlen(str);
 	if (len >= 2 && ((str[0] == '"' && str[len - 1] == '"')
 			|| (str[0] == '\'' && str[len - 1] == '\'')))
 	{
-		clean = strndup(str + 1, len - 2);
+		clean = ft_strndup(str + 1, len - 2);
 		return (clean);
 	}
-	return (strdup(str));
+	return (ft_strdup(str));
 }
 
 char	*remove_first_layer_quotes(char *input)
@@ -59,10 +59,10 @@ char	*remove_first_layer_quotes(char *input)
 	char	*result;
 	int		i;
 
-	len = strlen(input);
+	len = ft_strlen(input);
 	if (len < 2)
 	{
-		result = strdup(input);
+		result = ft_strdup(input);
 		free(input);
 		return (result);
 	}
@@ -82,4 +82,11 @@ char	*get_first_word(char *str)
 	while (str[i] && str[i] != ' ')
 		i++;
 	return (ft_substr(str, 0, i));
+}
+
+int	is_quoted_delimiter(const char *delimiter)
+{
+	if (!delimiter)
+		return (0);
+	return (delimiter[0] == '"' || delimiter[0] == '\'');
 }

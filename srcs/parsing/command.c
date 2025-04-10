@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 00:27:28 by oel-mest          #+#    #+#             */
-/*   Updated: 2025/03/20 01:58:04 by oel-mest         ###   ########.fr       */
+/*   Updated: 2025/04/10 22:47:37 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,39 @@ t_ast	*parse_command(t_token **tokens, int inpar)
 {
 	t_ast	*node;
 
-	if (*tokens == NULL || is_special_token(*tokens) || (*tokens)->type == TOKEN_RPAREN)
+	if (*tokens == NULL || is_special_token(*tokens)
+		|| (*tokens)->type == TOKEN_RPAREN)
 	{
 		if (*tokens == NULL)
-			printf("4minishell: syntax error near unexpected token `newline'\n");
+		{
+			print_error("syntax error near unexpected token `newline\'", NULL);
+			set_status(258);
+		}
 		else
-			printf("5minishell: syntax error near unexpected token `%s'\n",
-				(*tokens)->value);
+		{
+			print_error("syntax error near unexpected token `",
+				(*tokens)->value, "\'", NULL);
+			set_status(258);
+		}
 		return (NULL);
 	}
 	node = create_ast_node(NODE_COMMAND, inpar);
 	node->cmd = create_cmd_node();
 	if (process_command_tokens(node, tokens, inpar))
 	{
-		free_ast(node);
-		return (NULL);
+		return (free_ast(node), NULL);
 	}
 	return (node);
+}
+
+// utils
+void	join_output(t_output *output, char *str)
+{
+	char	*tmp;
+
+	while (output->next)
+		output = output->next;
+	tmp = output->file;
+	output->file = ft_strjoin(output->file, str);
+	free(tmp);
 }

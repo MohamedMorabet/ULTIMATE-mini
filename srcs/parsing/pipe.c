@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 00:34:20 by oel-mest          #+#    #+#             */
-/*   Updated: 2025/03/20 01:58:16 by oel-mest         ###   ########.fr       */
+/*   Updated: 2025/04/07 15:34:41 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,23 @@
 static t_ast	*handle_syntax_error(t_ast *left, t_ast *node, t_token **tokens)
 {
 	if (!tokens || !*tokens)
-		printf("6minishell: syntax error near unexpected token `newline'\n");
+	{
+		print_error("syntax error near unexpected token `newline\'", NULL);
+		set_status(258);
+	}
 	else
-		printf("7minishell: syntax error near unexpected token `%s'\n",
-			(*tokens)->value);
+	{
+		print_error("syntax error near unexpected token `",
+			(*tokens)->value, "\'", NULL);
+		set_status(258);
+	}
 	free_ast(left);
 	free_ast(node);
 	return (NULL);
 }
 
-static t_ast	*parse_pipeline_segment(t_token **tokens, int inpar, t_ast *left)
+static t_ast	*parse_pipeline_segment(t_token **tokens, int inpar,
+	t_ast *left)
 {
 	t_ast	*node;
 	t_ast	*right;

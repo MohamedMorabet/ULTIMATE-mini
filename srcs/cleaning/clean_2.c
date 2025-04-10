@@ -6,7 +6,7 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 01:31:03 by oel-mest          #+#    #+#             */
-/*   Updated: 2025/03/25 22:21:34 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/03 13:12:34 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	free_ast(t_ast *ast)
 {
 	if (!ast)
-		return;
+		return ;
 	free_ast(ast->left);
 	free_ast(ast->right);
 	if (ast->cmd)
@@ -27,10 +27,27 @@ void	free_ast(t_ast *ast)
 
 void	free_split(char **split)
 {
-	int i = 0;
-    if (!split || !*split)
-        return;
+	int	i;
+
+	i = 0;
+	if (!split || !*split)
+		return ;
 	while (split[i])
 		free(split[i++]);
 	free(split);
+}
+
+// from clean_1.c
+void	free_cmd(t_cmd *cmd)
+{
+	if (!cmd)
+		return ;
+	free(cmd->args);
+	free(cmd->input);
+	free(cmd->output);
+	free(cmd->heredoc);
+	free_output_list(cmd->output2);
+	free_output_list(cmd->input2);
+	free_output_list(cmd->heredoc2);
+	free(cmd);
 }

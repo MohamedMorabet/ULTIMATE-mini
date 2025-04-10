@@ -6,21 +6,26 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:36:29 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/03/26 00:31:25 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/03 13:48:06 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 #include "../../../includes/execution.h"
 
-int	is_quoted_delimiter(const char *delimiter)
+static int	count_env(t_envnode *envp)
 {
-	if (!delimiter)
-		return (0);
-	return (delimiter[0] == '"' || delimiter[0] == '\'');
+	int	count;
+
+	count = 0;
+	while (envp)
+	{
+		count++;
+		envp = envp->next;
+	}
+	return (count);
 }
 
-// envp to array (dont malloc)
 char	**envp_to_array(t_envnode *envp)
 {
 	int			i;
@@ -28,13 +33,7 @@ char	**envp_to_array(t_envnode *envp)
 	char		**envp_array;
 	char		*tmp2;
 
-	i = 0;
-	tmp = envp;
-	while (tmp)
-	{
-		i++;
-		tmp = tmp->next;
-	}
+	i = count_env(envp);
 	envp_array = malloc(sizeof(char *) * (i + 1));
 	if (!envp_array)
 		return (NULL);

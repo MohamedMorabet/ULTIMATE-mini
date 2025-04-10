@@ -6,7 +6,7 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 18:00:00 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/03/25 19:58:11 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/05 16:07:24 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	unset_one_var(char *var, t_envnode **envp)
 	tmp = *envp;
 	while (tmp)
 	{
-		if (strcmp(tmp->var, var) == 0)
+		if (ft_strcmp(tmp->var, var) == 0)
 		{
 			if (prev)
 				prev->next = tmp->next;

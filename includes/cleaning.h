@@ -6,7 +6,7 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 01:29:34 by oel-mest          #+#    #+#             */
-/*   Updated: 2025/03/25 22:35:51 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/03 12:25:32 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include "minishell.h"
 
-void free_cmd(t_cmd *cmd);
-void free_ast(t_ast *node);
+void	free_cmd(t_cmd *cmd);
+void	free_ast(t_ast *node);
 void	free_tokens(t_token *tokens);
 void	free_env_list(t_envnode *env_list);
 void	free_env_list2(t_envnode **env_list);

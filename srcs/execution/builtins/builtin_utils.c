@@ -6,7 +6,7 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:54:57 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/03/25 21:31:07 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/05 16:07:10 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_envnode	*find_env_var(t_envnode *envp, const char *var)
 {
 	while (envp)
 	{
-		if (strcmp(envp->var, var) == 0)
+		if (ft_strcmp(envp->var, var) == 0)
 			return (envp);
 		envp = envp->next;
 	}
@@ -52,7 +52,7 @@ void	hundle(char **home)
 	if (len >= 2 && ((*home[0] == '"' && (*home)[len - 1] == '"')
 		|| ((*home)[0] == '\'' && (*home)[len - 1] == '\'')))
 	{
-		tmp = strndup(*home + 1, len - 2);
+		tmp = ft_strndup(*home + 1, len - 2);
 		free(*home);
 		*home = tmp;
 	}

@@ -6,7 +6,7 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 11:43:36 by mel-mora          #+#    #+#             */
-/*   Updated: 2024/11/03 13:23:17 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/05 16:10:22 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,22 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 	}
 	dest[j] = '\0';
 	return (dlen + slen);
+}
+
+char	*ft_strcat(char *dest, const char *src)
+{
+	unsigned int	dest_len;
+	unsigned int	i;
+
+	dest_len = 0;
+	while (dest[dest_len])
+		dest_len++;
+	i = 0;
+	while (src[i])
+	{
+		dest[dest_len + i] = src[i];
+		i++;
+	}
+	dest[dest_len + i] = '\0';
+	return (dest);
 }

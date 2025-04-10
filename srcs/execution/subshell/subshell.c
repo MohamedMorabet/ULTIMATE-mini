@@ -6,7 +6,7 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 17:58:19 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/03/25 20:31:26 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/07 20:05:52 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	execute_local_executable(char *cmd, char **args, char **envp)
 		exit(126);
 	}
 	execve(cmd, args, envp);
-	print_error("execve", NULL);
+	print_error(cmd, ": error in executing the local executable", NULL);
 	exit(126);
 }
 

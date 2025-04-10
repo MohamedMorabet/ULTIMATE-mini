@@ -6,7 +6,7 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 13:37:51 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/03/26 02:18:14 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/03 11:16:33 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static int	wait_and_cleanup(t_exec_ctx *ctx)
 	else
 		set_status(WEXITSTATUS(g_status));
 	free_split(ctx->envp_array);
-	// unlink(ctx->cmd->heredoc);
 	if (ctx->args)
 		free_split(ctx->args);
 	if (ctx->path)
@@ -65,13 +64,13 @@ int	execute_command(t_ast *tree, t_envnode **envp)
 	int			pid;
 
 	ret = setup_context(&ctx, tree, envp);
-	if (ret != 0)
-		return (ret);
 	if (ret == 5)
 	{
 		free_withoutexit(&ctx);
 		return (0);
 	}
+	if (ret != 0)
+		return (ret);
 	pid = fork();
 	if (pid == -1)
 	{
@@ -82,7 +81,6 @@ int	execute_command(t_ast *tree, t_envnode **envp)
 	ctx.envp_array = envp_to_array(*envp);
 	if (pid == 0)
 		child_process(&ctx);
-
 	wait_and_cleanup(&ctx);
 	return (get_status());
 }

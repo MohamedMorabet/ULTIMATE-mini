@@ -6,126 +6,132 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 12:18:40 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/03/26 03:04:16 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/10 22:27:52 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 #include "../../../includes/execution.h"
 
-char	*expand_token(const char *token)
+// expand line function
+/*
+ * Expand an entire command line.
+ * This function tokenizes the input by whitespace, expands each token,
+ * and then rejoins them with a single space.
+ */
+/* Helper: Extract the next whitespace‐delimited token from the input string.
+   Advances the pointer pointed to by p. */
+static char	*extract_next_token(const char **p)
 {
-	char	**matches;
-	char	*res;
-	size_t	total;
+	const char	*start;
+	size_t		len;
+	char		*token;
 
-	if (strchr(token, '*') == NULL)
-		return (strdup(token));
-	matches = expand_wildcard(token);
-	if (matches == NULL || matches[0] == NULL)
-	{
-		if (matches != NULL)
-			free(matches);
-		return (strdup(token));
-	}
-	total = compute_total(matches);
-	res = build_result(matches, total);
-	free(matches);
-	return (res);
+	while (**p && ((**p == ' ') || (**p == '\t')))
+		(*p)++;
+	if (!(**p))
+		return (NULL);
+	start = *p;
+	while (**p && ((**p != ' ') && (**p != '\t')))
+		(*p)++;
+	len = *p - start;
+	token = malloc(len + 1);
+	if (!token)
+		return (NULL);
+	strncpy(token, start, len);
+	token[len] = '\0';
+	return (token);
 }
 
-char	*get_next_expanded_token(const char **line_ptr)
+/* Helper: Append an expanded token to the result string.
+   Updates pos and cap accordingly. Returns 0 on success, 1 on error. */
+static int	append_expanded_token(char **result, size_t *pos, size_t *cap,
+		const char *expanded)
+{
+	size_t		exp_len;
+	char		*temp;
+
+	exp_len = strlen(expanded);
+	if ((*pos) + exp_len + 2 > (*cap))
+	{
+		*cap = (*pos) + exp_len + 1024;
+		temp = realloc(*result, *cap);
+		if (!temp)
+		{
+			perror("realloc");
+			return (1);
+		}
+		*result = temp;
+	}
+	if ((*pos) > 0)
+	{
+		(*result)[*pos] = ' ';
+		*pos = *pos + 1;
+		(*result)[*pos] = '\0';
+	}
+	strcat(*result, expanded);
+	*pos = *pos + exp_len;
+	return (0);
+}
+
+/* Helper: Process the input line by extracting, expanding, and
+	appending tokens.
+    Returns 0 on success, 1 on error.
+*/
+static int	process_line_loop(const char *line, char **result, size_t *pos,
+		size_t *cap)
 {
 	const char	*p;
-	const char	*start;
 	char		*token;
-	char		*exp;
+	char		*expanded;
 
-	p = *line_ptr;
-	while (*p == ' ' || *p == '\t')
-		p++;
-	if (*p == '\0')
-		return (NULL);
-	start = p;
-	while (*p && *p != ' ' && *p != '\t')
-		p++;
-	token = strndup(start, p - start);
-	exp = expand_token(token);
-	free(token);
-	*line_ptr = p;
-	return (exp);
-}
-
-size_t	w_append_token(char **res_ptr, size_t pos,
-			size_t *cap, const char *token)
-{
-	char	*res;
-	size_t	token_len;
-
-	res = *res_ptr;
-	if (pos > 0)
-	{
-		if (pos + 1 >= *cap)
-		{
-			*cap = pos + 1 + 1024;
-			res = realloc(res, *cap);
-		}
-		res[pos] = ' ';
-		pos++;
-		res[pos] = '\0';
-	}
-	token_len = strlen(token);
-	if (pos + token_len + 1 >= *cap)
-	{
-		*cap = pos + token_len + 1024;
-		res = realloc(res, *cap);
-	}
-	strcpy(res + pos, token);
-	pos = pos + token_len;
-	*res_ptr = res;
-	return (pos);
-}
-
-static size_t	process_tokens(const char *p, char **res, size_t *cap)
-{
-	size_t	pos;
-	char	*token;
-
-	pos = 0;
+	p = line;
 	while (*p)
 	{
-		while (*p == ' ' || *p == '\t')
-			p++;
-		if (*p == '\0')
-			break ;
-		token = get_next_expanded_token(&p);
+		token = extract_next_token(&p);
 		if (!token)
 			break ;
-		pos = w_append_token(res, pos, cap, token);
+		expanded = expand_token(token);
 		free(token);
+		if (!expanded)
+			return (1);
+		if (append_expanded_token(result, pos, cap, expanded))
+		{
+			free(expanded);
+			return (1);
+		}
+		free(expanded);
 	}
-	return (pos);
+	return (0);
 }
 
+/* Main function: Expand a line by processing and expanding each token.
+   Frees the input line and returns a new string with the expanded result,
+   or NULL if no tokens were found or on error. */
 char	*expand_line(char *line)
 {
-	char	*res;
-	size_t	cap;
-	size_t	pos;
+	char		*result;
+	size_t		cap;
+	size_t		pos;
+	int			ret;
 
 	if (!line)
 		return (NULL);
 	cap = 1024;
-	res = malloc(cap);
-	if (!res)
-		return (NULL);
-	res[0] = '\0';
-	pos = process_tokens(line, &res, &cap);
-	if (pos == 0)
+	pos = 0;
+	result = malloc(cap);
+	if (!result)
 	{
-		free(res);
+		perror("malloc");
 		return (NULL);
 	}
+	result[0] = '\0';
+	ret = process_line_loop(line, &result, &pos, &cap);
 	free(line);
-	return (res);
+	if (ret || pos == 0)
+	{
+		free(result);
+		return (NULL);
+	}
+	return (result);
 }

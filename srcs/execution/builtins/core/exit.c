@@ -6,7 +6,7 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 18:00:21 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/03/25 23:09:29 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/03 13:24:45 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,10 @@ void	free_ctx(t_exec_ctx *ctx)
 		free(ctx->path);
 	if (ctx->envp_array)
 		free_split(ctx->envp_array);
-	// if (ctx->cmd->args)
-	// 	free(ctx->cmd->args);
 	if (ctx->node)
 		free_ast(ctx->node);
 	if (ctx->envp)
 		free_env_list2(ctx->envp);
-	// free(ctx);
 }
 
 int	builtin_exit(t_exec_ctx *ctx)

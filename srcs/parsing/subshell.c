@@ -6,7 +6,7 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 00:38:13 by oel-mest          #+#    #+#             */
-/*   Updated: 2025/03/22 17:14:25 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/07 15:40:15 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,15 @@ static t_ast	*handle_parentheses_parent(t_token **tokens, int inpar)
 	t_ast	*ast;
 
 	*tokens = (*tokens)->next;
-	if (!*tokens || (*tokens)->type == TOKEN_RPAREN || is_special_token(*tokens))
+	if (!*tokens || (*tokens)->type == TOKEN_RPAREN
+		|| is_special_token(*tokens))
 	{
 		if (!*tokens)
-			printf("8minishell: syntax error near unexpected token `newline'\n");
+			print_error("syntax error near unexpected token `newline\'", NULL);
 		else
-			printf("9minishell: syntax error near unexpected token `%s'\n", (*tokens)->value);
+			print_error("syntax error near unexpected token `",
+				(*tokens)->value, "\'", NULL);
+		set_status(258);
 		return (NULL);
 	}
 	ast = parse_subshell_content(tokens, inpar);
@@ -44,15 +47,15 @@ static t_ast	*handle_parentheses_parent(t_token **tokens, int inpar)
 		return (NULL);
 	if (!*tokens || (*tokens)->type != TOKEN_RPAREN)
 	{
-		printf("minishell: unclosed parentheses\n");
+		print_error("unclosed parentheses", NULL);
 		free_ast(ast);
-		return (NULL);
+		return (set_status(258), NULL);
 	}
 	*tokens = (*tokens)->next;
 	return (ast);
 }
 
-static int parse_redirection(t_token **tokens, t_ast *ast)
+static int	parse_redirection(t_token **tokens, t_ast *ast)
 {
 	while (*tokens && is_redirection_token(*tokens))
 	{
@@ -85,7 +88,8 @@ t_ast	*handle_parentheses(t_token **tokens, int inpar)
 		ast = handle_parentheses_parent(tokens, inpar);
 	else if (!*tokens)
 	{
-		printf("minishell: syntax error here\n");
+		print_error("syntax error", NULL);
+		set_status(258);
 		return (NULL);
 	}
 	else

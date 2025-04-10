@@ -6,7 +6,7 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 13:04:17 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/03/25 22:05:28 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/07 19:55:15 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	exec_and_node(t_ast *node, t_envnode **envp)
 
 int	exec_or_node(t_ast *node, t_envnode **envp)
 {
-	if (execute_ast(node->left, envp) == 1)
+	if (execute_ast(node->left, envp) != 0)
 		return (execute_ast(node->right, envp));
 	return (0);
 }

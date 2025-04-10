@@ -6,7 +6,7 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 19:49:38 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/03/25 20:01:40 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/05 16:02:53 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,16 @@ char	*strip_quotes(const char *s)
 	char	*temp;
 	size_t	len;
 
-	res = strdup(s);
+	res = ft_strdup(s);
 	while (res)
 	{
-		len = strlen(res);
+		len = ft_strlen(res);
 		if (len < 2)
 			break ;
 		if ((res[0] == '"' && res[len - 1] == '"')
 			|| (res[0] == '\'' && res[len - 1] == '\''))
 		{
-			temp = strndup(res + 1, len - 2);
+			temp = ft_strndup(res + 1, len - 2);
 			free(res);
 			res = temp;
 		}
@@ -84,9 +84,9 @@ char	*extract_var_name(char *arg, size_t *var_len)
 {
 	char	*eq;
 
-	eq = strchr(arg, '=');
+	eq = ft_strchr(arg, '=');
 	*var_len = (size_t)(eq - arg);
-	return (strndup(arg, *var_len));
+	return (ft_strndup(arg, *var_len));
 }
 
 int	update_export_var(char *var_name, char *arg, t_envnode **envp)
@@ -95,7 +95,7 @@ int	update_export_var(char *var_name, char *arg, t_envnode **envp)
 	char		*value;
 	char		*stripped;
 
-	value = strdup(strchr(arg, '=') + 1);
+	value = ft_strdup(ft_strchr(arg, '=') + 1);
 	stripped = strip_quotes(value);
 	free(value);
 	node = find_env_var(*envp, var_name);

@@ -6,7 +6,7 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 20:15:14 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/03/25 20:28:52 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/10 22:31:10 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ static int	open_last_output_file(t_output *output_list, int append)
 			flags |= O_TRUNC;
 		if (fd != -1)
 			close(fd);
+		hundle_awk(&current->file);
+		current->file = remove_first_layer_quotes(current->file);
 		fd = open(current->file, flags, 0644);
 		if (fd < 0)
-		{
-			print_error(current->file, ": No such file or directory", NULL);
-			return (-1);
-		}
+			return (print_error(current->file,
+					": No such file or directory", NULL), -1);
 		current = current->next;
 	}
 	return (fd);

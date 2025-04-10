@@ -6,7 +6,7 @@
 /*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 12:35:42 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/03/25 23:01:32 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/07 22:52:26 by mel-mora         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ char	*join_path(const char *dir, const char *cmd)
 		return (full);
 	}
 	full[0] = '\0';
-	strcat(full, dir);
-	strcat(full, "/");
-	strcat(full, cmd);
+	ft_strcat(full, dir);
+	ft_strcat(full, "/");
+	ft_strcat(full, cmd);
 	return (full);
 }
 
@@ -59,13 +59,39 @@ static char	*try_segment(const char *start, char *cmd, const char **next)
 	char		dir[1024];
 	char		*full_path;
 
-	colon = strchr(start, ':');
+	colon = ft_strchr(start, ':');
 	if (!colon)
-		colon = start + strlen(start);
+		colon = start + ft_strlen(start);
 	len = colon - start;
 	if (len >= sizeof(dir))
 		len = sizeof(dir) - 1;
-	strncpy(dir, start, len);
+	ft_strncpy(dir, start, len);
+	dir[len] = '\0';
+	full_path = join_path(dir, cmd);
+	if (full_path[0] != '\0' && access(full_path, X_OK | F_OK) == 0)
+	{
+		*next = colon;
+		return (full_path);
+	}
+	free(full_path);
+	*next = colon;
+	return (NULL);
+}
+
+static char	*try_segment2(const char *start, char *cmd, const char **next)
+{
+	const char	*colon;
+	size_t		len;
+	char		dir[1024];
+	char		*full_path;
+
+	colon = ft_strchr(start, ':');
+	if (!colon)
+		colon = start + ft_strlen(start);
+	len = colon - start;
+	if (len >= sizeof(dir))
+		len = sizeof(dir) - 1;
+	ft_strncpy(dir, start, len);
 	dir[len] = '\0';
 	full_path = join_path(dir, cmd);
 	if (full_path[0] != '\0' && access(full_path, X_OK | F_OK) == 0)
@@ -84,7 +110,7 @@ char	*search_command(char *cmd, t_envnode *envp)
 	const char	*next;
 	char		*found;
 
-	if (strchr(cmd, '/') != NULL)
+	if (ft_strchr(cmd, '/') != NULL)
 	{
 		if (access(cmd, X_OK) == 0)
 			return (ft_strdup(cmd));
@@ -97,14 +123,12 @@ char	*search_command(char *cmd, t_envnode *envp)
 	while (*next)
 	{
 		found = try_segment(next, cmd, &next);
-		
 		if (found != NULL)
 		{
-			free(path_env);
-			return (found);
+			return (free(path_env), found);
 		}
-		next++;
+		if (*next != 0)
+			next++;
 	}
-	free(path_env);
-	return (NULL);
+	return (free(path_env), NULL);
 }
