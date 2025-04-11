@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_helpers.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:39:42 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/04/03 13:46:07 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:57:35 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	process_remaining_chars(char *input, int *i, char **result)
 void	append_char(char **str, char c)
 {
 	char	mystr[2];
-	char	*new_str;
 	char	*tmp;
 
 	mystr[0] = c;

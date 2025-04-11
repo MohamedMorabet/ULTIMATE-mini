@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ambiguous.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 13:57:40 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/04/10 22:32:02 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 13:48:24 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	check_ambiguous_redirects(t_cmd *cmd, t_envnode *env_list)
 {
 	if (check_ambiguous_output(cmd->output2, env_list))
 		return (1);
-	if (check_ambiguous_input(cmd->heredoc2, env_list))
+	if (check_ambiguous_input(cmd->input2, env_list))
 		return (1);
 	return (0);
 }

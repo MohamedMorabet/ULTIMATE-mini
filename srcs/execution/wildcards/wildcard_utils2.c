@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 22:27:12 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/04/10 22:28:56 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 12:53:46 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,16 @@ char	*expand_token(const char *token)
 {
 	char	**matches;
 	size_t	total;
-	char	*res;
+	char	*res; 
 
-	if (!strchr(token, '*'))
-		return (strdup(token));
+	if (!ft_strchr(token, '*'))
+		return (ft_strdup(token));
 	matches = expand_wildcard(token);
 	if (!matches || !matches[0])
 	{
 		if (matches)
 			free(matches);
-		return (strdup(token));
+		return (ft_strdup(token));
 	}
 	total = compute_total(matches);
 	res = build_result(matches, total);

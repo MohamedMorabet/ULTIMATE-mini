@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   subshell.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 17:58:19 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/04/07 20:05:52 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:15:57 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	execute_subshell_child(t_ast *node, t_envnode **envp)
 				exit(1);
 		}
 		if (node->redi->heredoc)
-			handle_heredoc_if_needed(node->cmd);
+			handle_heredoc_if_needed2(node->redi);
 	}
 	exit(execute_ast(node->left, envp));
 }

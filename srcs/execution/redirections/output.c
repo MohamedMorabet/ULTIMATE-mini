@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   output.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 20:15:14 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/04/10 22:31:10 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 13:38:43 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	open_last_output_file(t_output *output_list, int append)
 			flags |= O_TRUNC;
 		if (fd != -1)
 			close(fd);
-		hundle_awk(&current->file);
+		hundle_awk2(&current->file);
 		current->file = remove_first_layer_quotes(current->file);
 		fd = open(current->file, flags, 0644);
 		if (fd < 0)

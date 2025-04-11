@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 16:51:14 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/03/25 19:58:56 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 13:59:03 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	builtin_echo(char *args)
 
 	newline = 1;
 	i = 5;
+	if (ft_strlen(args) == 4)
+		return(printf("\n"), set_status(0), 0);
 	while (args[i] == ' ')
 		i++;
 	i = process_n_options(args, i, &newline);

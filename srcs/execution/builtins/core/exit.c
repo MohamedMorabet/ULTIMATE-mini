@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 18:00:21 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/04/03 13:24:45 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:29:48 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	builtin_exit(t_exec_ctx *ctx)
 {
 	int	arg_count;
 
-	printf("exit\n");
+	printf("Bye Bye :)\n");
 	arg_count = count_args(ctx->args);
 	if (arg_count == 1)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   special_tokens.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 00:04:46 by oel-mest          #+#    #+#             */
-/*   Updated: 2025/04/03 15:46:54 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 13:15:18 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	handle_token_parentheses(const char *input, int *i,
 	token_value = malloc(2);
 	if (!token_value)
 	{
-		perror("malloc");
+		perror("HHHH");
 		exit(EXIT_FAILURE);
 	}
 	token_value[0] = input[*i];

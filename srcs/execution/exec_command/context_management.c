@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   context_management.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:22:12 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/04/10 22:43:27 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:57:15 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static int	handle_no_args(t_exec_ctx *ctx)
 {
 	int	saved_stdin;
 	int	saved_stdout;
-	int	ret;
 
 	saved_stdin = dup(STDIN_FILENO);
 	saved_stdout = dup(STDOUT_FILENO);
@@ -64,9 +63,9 @@ static int	exec_builtin(t_exec_ctx *ctx)
 		if (redirect_output(ctx->cmd->output2, ctx->cmd->append))
 			return (1);
 	}
-	if (ctx->cmd->heredoc2 && ctx->cmd->heredoc2->type == TOKEN_REDIRECT_IN)
+	if (ctx->cmd->input2 && ctx->cmd->input2->type == TOKEN_REDIRECT_IN)
 	{
-		if (redirect_input(ctx->cmd->heredoc2))
+		if (redirect_input(ctx->cmd->input2))
 			return (1);
 	}
 	ret = run_builtin(ctx);
@@ -74,20 +73,6 @@ static int	exec_builtin(t_exec_ctx *ctx)
 	dup2(saved_stdin, STDIN_FILENO);
 	dup2(saved_stdout, STDOUT_FILENO);
 	return (ret);
-}
-
-// expand wildcard using expand_line function in ctx->args and ctx->cmd->args
-static void	wildcard_expand(t_exec_ctx *ctx)
-{
-	int	i;
-
-	ctx->cmd->args = expand_line(ctx->cmd->args);
-	i = 0;
-	while (ctx->args[i])
-	{
-		ctx->args[i] = expand_line(ctx->args[i]);
-		i++;
-	}
 }
 
 int	setup_context(t_exec_ctx *ctx, t_ast *tree, t_envnode **envp)

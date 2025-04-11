@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 00:23:37 by oel-mest          #+#    #+#             */
-/*   Updated: 2025/04/10 22:47:46 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 13:50:47 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,10 @@ typedef struct s_output
 
 typedef struct s_cmd {
 	char		*args;
-	char		*input;
 	t_output	*input2;
-	char		*output;
 	t_output	*output2;
 	int			append;
 	char		*heredoc;
-	t_output	*heredoc2;
 }	t_cmd;
 
 typedef struct s_redi {

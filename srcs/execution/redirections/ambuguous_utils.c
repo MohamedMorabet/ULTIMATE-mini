@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ambuguous_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 16:18:40 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/04/10 22:31:50 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:56:46 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ static int	is_empty_file(char *file)
 
 int	if_ambiguous(char *file, t_envnode *env_list)
 {
-	int		i;
 	char	*var;
 
 	if (count_words(file, ' ') > 1)

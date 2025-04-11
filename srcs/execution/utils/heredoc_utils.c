@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 22:37:24 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/04/10 22:38:08 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:59:54 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,9 @@ void	process_heredoc_entry(t_output *current, t_envnode **envp)
 		print_error("heredoc temp file", NULL);
 		exit(1);
 	}
+	expand_vars = is_quoted_delimiter(current->file);
 	clean_delimiter = remove_quotes(current->file);
-	expand_vars = !is_quoted_delimiter(current->file);
+	clean_delimiter = remove_first_layer_quotes(clean_delimiter);
 	process_heredoc_input(fd, clean_delimiter, expand_vars, envp);
 	close(fd);
 	free(current->file);

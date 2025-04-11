@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:35:41 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/04/10 22:38:01 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 17:01:31 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,16 @@ void	prepare_heredocs(t_ast *node, t_envnode **envp)
 	{
 		collect_heredoc(node->cmd, envp);
 	}
-	prepare_heredocs(node->left, envp);
-	prepare_heredocs(node->right, envp);
+	if (node->type == NODE_SUB && node->redi->input)
+	{
+		prepare_heredocs(node->left, envp);
+		collect_heredoc2(node->redi, envp);
+	}
+	else
+	{
+		prepare_heredocs(node->left, envp);
+		prepare_heredocs(node->right, envp);
+	}
 }
 
 void	process_heredoc_input(int fd, char *clean_delimiter,
@@ -58,8 +66,21 @@ void	process_heredoc_input(int fd, char *clean_delimiter,
 void	collect_heredoc(t_cmd *cmd, t_envnode **envp)
 {
 	t_output	*current;
-
+	
 	current = cmd->input2;
+	while (current)
+	{
+		if (current->type == TOKEN_HEREDOC)
+			process_heredoc_entry(current, envp);
+		current = current->next;
+	}
+}
+
+void	collect_heredoc2(t_redi *redi, t_envnode **envp)
+{
+	t_output	*current;
+
+	current = redi->input;
 	while (current)
 	{
 		if (current->type == TOKEN_HEREDOC)
@@ -91,6 +112,37 @@ void	handle_heredoc_if_needed(t_cmd *cmd)
 		{
 			print_error("open", current->file, NULL);
 			exit(1);
+		}
+		current = current->next;
+	}
+}
+
+void	handle_heredoc_if_needed2(t_redi *redi)
+{
+	t_output	*current;
+	int			fd;
+
+	current = redi->input;
+	while (current)
+	{
+		if (current->type == TOKEN_HEREDOC)
+		{
+			if (access(current->file, F_OK) == 0)
+			{
+				fd = open(current->file, O_RDONLY);
+				if (fd < 0)
+				{
+					print_error("open", current->file, NULL);
+					exit(1);
+				}
+				dup2(fd, STDIN_FILENO);
+				close(fd);
+			}
+			else
+			{
+				print_error("open", current->file, NULL);
+				exit(1);
+			}
 		}
 		current = current->next;
 	}

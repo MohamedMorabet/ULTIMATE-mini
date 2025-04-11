@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 00:28:49 by oel-mest          #+#    #+#             */
-/*   Updated: 2025/04/03 14:07:54 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 13:49:20 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_ast	*create_ast_node(t_node_type type, int inpar)
 	node = malloc(sizeof(t_ast));
 	if (node == NULL)
 	{
-		perror("Malloc error");
+		perror("HHHH");
 		exit(EXIT_FAILURE);
 	}
 	node->type = type;
@@ -45,17 +45,14 @@ t_cmd	*create_cmd_node(void)
 	cmd = malloc(sizeof(t_cmd));
 	if (cmd == NULL)
 	{
-		perror("Malloc error");
+		perror("HHHH");
 		exit(EXIT_FAILURE);
 	}
 	cmd->args = NULL;
-	cmd->input = NULL;
 	cmd->input2 = NULL;
-	cmd->output = NULL;
 	cmd->output2 = NULL;
 	cmd->append = 0;
 	cmd->heredoc = NULL;
-	cmd->heredoc2 = NULL;
 	return (cmd);
 }
 

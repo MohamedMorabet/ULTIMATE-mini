@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 00:31:31 by oel-mest          #+#    #+#             */
-/*   Updated: 2025/04/10 22:50:01 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 13:04:52 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ static int	handle_redirect_out2(t_cmd **cmd, t_token **tokens)
 	*tokens = (*tokens)->next;
 	if (*tokens && is_word_or_quote((*tokens)->type))
 	{
-		free ((*cmd)->output);
-		(*cmd)->output = ft_strdup ((*tokens)->value);
 		add_output (&(*cmd)->output2, create_output_node((*tokens)->value,
 				TOKEN_APPEND));
 		(*cmd)->append = is_append;

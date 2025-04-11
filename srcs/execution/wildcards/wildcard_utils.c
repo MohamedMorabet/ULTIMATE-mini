@@ -3,15 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:15:07 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/04/10 22:28:52 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 17:20:20 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 #include "../../../includes/execution.h"
+#include <string.h>
+int max(int a, int b)
+{
+    return (a > b) ? a : b;
+}
 
 /*
  * Check a directory entry and add it to the match array if it fits.
@@ -23,7 +28,7 @@ void	check_and_add(const char *pattern, struct dirent *entry,
 {
 	char	**temp;
 
-	if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
+	if (ft_strcmp(entry->d_name, ".") == 0 || ft_strcmp(entry->d_name, "..") == 0)
 		return ;
 	if (pattern[0] != '.' && entry->d_name[0] == '.')
 		return ;
@@ -31,16 +36,17 @@ void	check_and_add(const char *pattern, struct dirent *entry,
 		return ;
 	if (ctx->cnt >= ctx->cap - 1)
 	{
-		ctx->cap *= 2;
-		temp = realloc(ctx->matches, sizeof(char *) * ctx->cap);
+		temp = ft_realloc_ptr_array(ctx->matches, sizeof(char *) * ctx->cap,
+			sizeof(char *) * ctx->cap + 10);
 		if (!temp)
 			exit(EXIT_FAILURE);
+		ctx->cap += 10;
 		ctx->matches = temp;
 	}
-	ctx->matches[ctx->cnt] = strdup(entry->d_name);
+	ctx->matches[ctx->cnt] = ft_strdup(entry->d_name);
 	if (!ctx->matches[ctx->cnt])
 	{
-		print_error("malloc", NULL);
+		perror("HHHH");
 		exit(EXIT_FAILURE);
 	}
 	ctx->cnt++;
@@ -59,7 +65,7 @@ size_t	compute_total(char **matches)
 	i = 0;
 	while (matches && matches[i])
 	{
-		total += strlen(matches[i]) + 1;
+		total += ft_strlen(matches[i]) + 1;
 		i++;
 	}
 	return (total);
@@ -77,16 +83,16 @@ char	*build_result(char **matches, size_t total)
 	res = malloc(total + 1);
 	if (!res)
 	{
-		perror("malloc");
+		perror("HHHH");
 		return (NULL);
 	}
 	res[0] = '\0';
 	i = 0;
 	while (matches && matches[i])
 	{
-		strcat(res, matches[i]);
+		ft_strcat(res, matches[i]);
 		if (matches[i + 1])
-			strcat(res, " ");
+			ft_strcat(res, " ");
 		free(matches[i]);
 		i++;
 	}
@@ -106,7 +112,7 @@ static void	sort_matches(char **matches, size_t cnt)
 		j = i + 1;
 		while (j < cnt)
 		{
-			if (strcmp(matches[i], matches[j]) > 0)
+			if (strncmp(matches[i], matches[j], max(strlen(matches[i]), strlen(matches[j]))) > 0)
 			{
 				temp = matches[i];
 				matches[i] = matches[j];
@@ -131,7 +137,7 @@ char	**expand_wildcard(const char *pattern)
 	ctx.cap = 10;
 	ctx.matches = malloc(sizeof(char *) * ctx.cap);
 	if (!ctx.matches)
-		return (print_error("malloc", NULL), NULL);
+		return (perror("HHHH"), NULL);
 	ctx.dir = opendir(".");
 	if (!ctx.dir)
 	{

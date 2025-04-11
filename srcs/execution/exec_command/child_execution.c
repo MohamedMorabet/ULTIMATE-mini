@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_execution.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 15:55:57 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/04/10 19:56:08 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 13:17:49 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	handle_empty_path(t_exec_ctx *ctx)
 	current_dir_exec = malloc(len);
 	if (!current_dir_exec)
 	{
-		print_error("malloc", NULL);
+		perror("HHHH");
 		exit(1);
 	}
 	ft_strcpy(current_dir_exec, "./");

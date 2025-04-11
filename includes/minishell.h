@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 00:09:12 by oel-mest          #+#    #+#             */
-/*   Updated: 2025/04/05 17:53:58 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 17:19:05 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # include "parsing.h"
 # include "env.h"
 # include "cleaning.h"
-# include "debug.h"
 
 // #ifndef EXECUTION_H
 # include "execution.h"

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 12:35:42 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/04/07 22:52:26 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:56:09 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,32 +53,6 @@ int	check_if_folder(char *cmd)
 }
 
 static char	*try_segment(const char *start, char *cmd, const char **next)
-{
-	const char	*colon;
-	size_t		len;
-	char		dir[1024];
-	char		*full_path;
-
-	colon = ft_strchr(start, ':');
-	if (!colon)
-		colon = start + ft_strlen(start);
-	len = colon - start;
-	if (len >= sizeof(dir))
-		len = sizeof(dir) - 1;
-	ft_strncpy(dir, start, len);
-	dir[len] = '\0';
-	full_path = join_path(dir, cmd);
-	if (full_path[0] != '\0' && access(full_path, X_OK | F_OK) == 0)
-	{
-		*next = colon;
-		return (full_path);
-	}
-	free(full_path);
-	*next = colon;
-	return (NULL);
-}
-
-static char	*try_segment2(const char *start, char *cmd, const char **next)
 {
 	const char	*colon;
 	size_t		len;

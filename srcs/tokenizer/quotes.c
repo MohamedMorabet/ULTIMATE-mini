@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 00:03:36 by oel-mest          #+#    #+#             */
-/*   Updated: 2025/04/05 16:13:25 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 13:21:54 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ static char	*extract_quoted_substr(const char *input, int *i, char quote)
 		(*i)++;
 	if (input[*i] != quote)
 	{
-		printf("minishell: syntax error (unclosed quote)\n");
+		print_error("syntax error (unclosed quote)", NULL);
 		return (NULL);
 	}
 	length = *i - start + 1;
 	substr = malloc(length + 1);
 	if (!substr)
 	{
-		perror("malloc");
+		perror("HHHH");
 		exit(EXIT_FAILURE);
 	}
 	ft_strncpy(substr, input + start, length);

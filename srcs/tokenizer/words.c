@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   words.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 00:04:08 by oel-mest          #+#    #+#             */
-/*   Updated: 2025/04/05 16:13:25 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 13:15:35 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	handle_word(const char *input, int *i, t_token **tokens, int *has_space)
 		word = malloc(length + 1);
 		if (!word)
 		{
-			perror("malloc");
+			perror("HHHH");
 			exit(EXIT_FAILURE);
 		}
 		ft_strncpy(word, input + start, length);

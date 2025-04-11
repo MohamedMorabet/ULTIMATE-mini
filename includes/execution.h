@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 22:42:59 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/04/10 22:28:12 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:57:23 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int			get_status(void);
 char		*ft_getenv(char *name, t_envnode *head);
 void		add_node(t_envnode **head, t_envnode *new_node);
 t_envnode	*create_node(const char *env_entry);
-void		handle_heredoc(char *delimiter);
+// void		handle_heredoc(char *delimiter);
 void		set_status(int status);
 int			execute_subshell(t_ast *node, t_envnode **envp);
 
@@ -109,6 +109,7 @@ char		*process_initial_part(char *input, int *i);
 void		append_char(char **str, char c);
 void		execute_local_executable(char *cmd, char **args, char **envp);
 void		hundle_awk(char **args);
+void		hundle_awk2(char **args);
 char		*remove_quotess(const char *str);
 void		process_remaining_chars(char *input, int *i, char **result);
 char		*remove_first_layer_quotes(char *input);
@@ -159,6 +160,8 @@ int			exec_pipe_node(t_ast *node, t_envnode **envp);
 int			exec_and_node(t_ast *node, t_envnode **envp);
 int			exec_or_node(t_ast *node, t_envnode **envp);
 int			exec_sub_node(t_ast *node, t_envnode **envp);
+void		collect_heredoc2(t_redi *redi, t_envnode **envp);
+void		handle_heredoc_if_needed2(t_redi *redi);
 
 void		free_withoutexit(t_exec_ctx *ctx);
 

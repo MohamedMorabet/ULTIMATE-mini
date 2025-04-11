@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 12:18:40 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/04/10 22:27:52 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 13:14:55 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static char	*extract_next_token(const char **p)
 	token = malloc(len + 1);
 	if (!token)
 		return (NULL);
-	strncpy(token, start, len);
+	ft_strncpy(token, start, len);
 	token[len] = '\0';
 	return (token);
 }
@@ -51,14 +51,14 @@ static int	append_expanded_token(char **result, size_t *pos, size_t *cap,
 	size_t		exp_len;
 	char		*temp;
 
-	exp_len = strlen(expanded);
+	exp_len = ft_strlen(expanded);
 	if ((*pos) + exp_len + 2 > (*cap))
 	{
 		*cap = (*pos) + exp_len + 1024;
 		temp = realloc(*result, *cap);
 		if (!temp)
 		{
-			perror("realloc");
+			perror("HHHH");
 			return (1);
 		}
 		*result = temp;
@@ -69,7 +69,7 @@ static int	append_expanded_token(char **result, size_t *pos, size_t *cap,
 		*pos = *pos + 1;
 		(*result)[*pos] = '\0';
 	}
-	strcat(*result, expanded);
+	ft_strcat(*result, expanded);
 	*pos = *pos + exp_len;
 	return (0);
 }
@@ -122,7 +122,7 @@ char	*expand_line(char *line)
 	result = malloc(cap);
 	if (!result)
 	{
-		perror("malloc");
+		perror("HHHH");
 		return (NULL);
 	}
 	result[0] = '\0';

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:38:11 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/04/05 16:03:00 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:40:09 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,16 @@ char	*get_first_word(char *str)
 
 int	is_quoted_delimiter(const char *delimiter)
 {
+	int	i;
+
+	i = 0;
 	if (!delimiter)
 		return (0);
-	return (delimiter[0] == '"' || delimiter[0] == '\'');
+	while (delimiter[i])
+	{
+		if (delimiter[i] == '\'' || delimiter[i] == '"')
+			return (0);
+		i++;
+	}
+	return (1);
 }

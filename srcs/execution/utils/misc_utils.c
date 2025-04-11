@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   misc_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:36:29 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/04/03 13:48:06 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:57:26 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,13 @@ void	hundle_awk(char **args)
 		process_quoted_arg(&args[i]);
 		i++;
 	}
+}
+
+void	hundle_awk2(char **args)
+{
+	if (!args)
+		return ;
+	process_first_arg(args);
+	process_quoted_arg(args);
+		
 }

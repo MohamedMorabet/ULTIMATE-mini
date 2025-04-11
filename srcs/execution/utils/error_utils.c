@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:34:40 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/03/25 20:32:43 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 13:14:17 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	print_error(char *first, ...)
 	va_list	args;
 	char	*str;
 
-	write(2, "bash: ", 6);
+	write(2, "HHHH: ", 6);
 	va_start(args, first);
 	str = first;
 	while (str != NULL)

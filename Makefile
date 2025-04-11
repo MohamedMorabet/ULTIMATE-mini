@@ -1,8 +1,8 @@
 # Compiler and flags
-CC = cc #-fsanitize=address -g
-CFLAGS = -I/goinfre/mel-mora/homebrew/opt/readline/include
+CC = cc -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -I/goinfre/$(USER)/homebrew/opt/readline/include
 INCLUDES = -I includes
-LDFLAGS = -L/goinfre/mel-mora/homebrew/opt/readline/lib -lreadline
+LDFLAGS = -L/goinfre/$(USER)/homebrew/opt/readline/lib -lreadline
 LIBFTT = -L $(SRCS_DIR)/libft -lft
 
 # Directories
@@ -115,6 +115,18 @@ fclean: clean
 
 # Rebuild rule
 re: fclean all
+# norminette checker
+norm:
+	@echo "Checking norminette..."
+	@norminette > .norm_output_tmp 2>&1; \
+	if grep -q "Error" .norm_output_tmp; then \
+		echo "$${RED}FAILED$${RESET}"; \
+	else \
+		echo "$${GREEN}OK$${RESET}"; \
+	fi; \
+	rm -f .norm_output_tmp
 
+run:
+	@./$(NAME)
 # Phony targets
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re run norm

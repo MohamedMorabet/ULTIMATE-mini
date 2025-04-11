@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 19:49:38 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/04/05 16:02:53 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:58:55 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 void	print_env_export(t_envnode *envp, char **args)
 {
 	int			i;
-	t_envnode	*node;
 
 	i = 0;
 	if (!args[1])

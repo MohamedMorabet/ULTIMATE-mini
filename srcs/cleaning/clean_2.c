@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 01:31:03 by oel-mest          #+#    #+#             */
-/*   Updated: 2025/04/03 13:12:34 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 13:50:34 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,8 @@ void	free_cmd(t_cmd *cmd)
 	if (!cmd)
 		return ;
 	free(cmd->args);
-	free(cmd->input);
-	free(cmd->output);
 	free(cmd->heredoc);
 	free_output_list(cmd->output2);
 	free_output_list(cmd->input2);
-	free_output_list(cmd->heredoc2);
 	free(cmd);
 }

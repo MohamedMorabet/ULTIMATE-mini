@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mel-mora <mel-mora@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 17:57:46 by mel-mora          #+#    #+#             */
-/*   Updated: 2025/04/05 16:07:17 by mel-mora         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:58:43 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 #include "../../../../includes/execution.h"
 
-static int	cd_home(char **args, t_envnode **envp)
+static int	cd_home(char **args __unused, t_envnode **envp)
 {
 	t_envnode	*node;
 	char		*home;
@@ -38,7 +38,7 @@ static int	cd_home(char **args, t_envnode **envp)
 	return (0);
 }
 
-static int	cd_oldpwd(char **args, t_envnode **envp)
+static int	cd_oldpwd(char **args __unused, t_envnode **envp)
 {
 	t_envnode	*node;
 	char		*oldpwd;
@@ -64,8 +64,6 @@ static int	cd_oldpwd(char **args, t_envnode **envp)
 int	builtin_cd(char **args, t_envnode **envp)
 {
 	char	*oldpwd;
-	char	*join;
-	int		i;
 	int		ret;
 
 	ret = 0;
